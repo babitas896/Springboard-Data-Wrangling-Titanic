@@ -11,11 +11,17 @@ setwd("C:/Users/ctsuser1/Desktop/Babita/Data Science/springboard/Titanic")
 #myfile <- mutate(myTitanic_dt, emabrked = ifelse(embarked == "", "S", embarked)) #- not working
 #myfile <- mutate(myTitanic_dt, if (embarked=="^$"){embarked = "S"}) #- not working
 #read the titanic file
+
 myTitanic <- read.csv(file = "titanic_original.csv")
+
 myTitanic_dt <- tbl_dt(myTitanic)
 myTitanic_dt$embarked = sub("^$", "S", myTitanic_dt$embarked) 
+myTitanic_dt %>% mutate(has_cabin_number = ifelse(myTitanic$cabin == "", 0, 1))
+
 myTitanic$embarked = sub("^$", "S", myTitanic$embarked) 
 myTitanic$age[which(is.na(myTitanic$age))] = mean(myTitanic$age, na.rm = TRUE)
 myTitanic$boat = sub("^$", "NA", myTitanic$boat)
+
+myTitanic$has_cabin_number <- ifelse(myTitanic$cabin == "", 0, 1)
 
   
